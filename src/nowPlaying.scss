@@ -1,0 +1,119 @@
+@import "components/flexbox";
+
+#nowPlaying {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+}
+
+#nowPlaying .topLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    @include flexbox;
+    @include align-items(center);
+}
+
+#nowPlaying canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@-webkit-keyframes progressPulse {
+    from { background-color: rgba(255,255,255,0.20); }
+    50% { background-color: rgba(255,255,255,0.10); }
+    to { background-color: rgba(255,255,255,0.20); }
+}
+
+#nowPlaying .middleLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    background: rgba(255,255,255,0.20);
+    border-right: 1px solid rgba(255,255,255,0.50);
+
+    -webkit-animation-name: progressPulse;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+#nowPlaying .cover {
+    @include flex-grow(1);
+    text-align: center;
+}
+
+#nowPlaying .cover img {
+    height: 150px;
+}
+
+#nowPlaying .details {
+    @include flex-grow(4);
+
+    img {
+        padding: 5px;
+    }
+}
+
+#nowPlaying .related {
+    @include flex-grow(1);
+
+        .trackRow {
+            height: 50px;
+            border-bottom: 0;
+        }
+
+        .trackRow-albumCover {
+            width: 50px;
+
+            img {
+                height: 40px;
+                width: 40px;
+            }
+        }
+
+        .trackRow-details {
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .trackRow-voteWrapper {
+            width: 50px;
+
+            .trackRow-vote, .trackRow-voted {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+        }
+    }
+
+#nowPlaying .details .bubbleWrap {
+    margin-top: 20px;
+}
+
+#nowPlaying .details .bubble {
+    display: inline-block;
+    background: rgba(0,0,0,0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 25px;
+    color: #fff;
+    text-align: center;
+    padding-top: 7px;
+    font-size: 18px;
+}
+
+
+h2, h3 {
+    color: #fff;
+}
