@@ -1,6 +1,4 @@
-/**
- * Created by stephenmudra on 17/01/15.
- */
+/** @jsx React.DOM */
 
 var React = require('react');
 

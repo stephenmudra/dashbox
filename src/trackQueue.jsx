@@ -1,8 +1,5 @@
-/*
-0AEP7edFKCUwm0vtNHkzsS
-0AvbvvHAZ8SQzLQdulzDfE
-*/
 /** @jsx React.DOM */
+    
 var React = require('react');
 
 require('./searchResults.scss');
@@ -10,7 +7,6 @@ require('./searchResults.scss');
 var createStoreMixin = require('utils/createStoreMixin.js');
 
 var ResultsItem = require('components/TrackRow.jsx');
-var MagicMove = require('react-magic-move');
 
 var QueueStore = require('stores/QueueStore.js'),
     QueueActions = require('actions/QueueActions.js');
