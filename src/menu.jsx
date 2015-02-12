@@ -29,8 +29,8 @@ var Menu = React.createClass({
     render() {
         return (
             <div id="menu">
-                <div className="list-todos">
-                    <div className='header'>Recent Votes</div>
+                <div className='header'>Recent Votes</div>
+                <div className="list-todos">                    
                     {this.renderList()}
                 </div>
             </div>

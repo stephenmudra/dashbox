@@ -15,12 +15,12 @@
 }
 
 .trackRow-albumCover {
-  width: 80px;
+  @include flex(0 0 80px);
   text-align: center;
 }
 
 .trackRow-details {
-  @include flex(4);
+  @include flex(1 1 auto);
 
   white-space: nowrap;
   overflow: hidden;
@@ -36,7 +36,7 @@
 }
 
 .trackRow-voteWrapper {
-  width: 80px;
+  @include flex(0 0 80px);
   text-align: center;
 
   .trackRow-voted {

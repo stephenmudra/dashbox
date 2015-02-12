@@ -1,11 +1,10 @@
 @import "components/flexbox";
 
 #menu {
+    @include flexbox();
     @include flex(1 1 auto);
+    @include flex-direction(column);
     margin-right: 10px;
-    max-height: 200px;
-    overflow: auto;
-    padding-right: 10px;
     width: 100%;
 
     @media screen and (min-width: 60em) {
@@ -17,21 +16,35 @@
     }
 }
 
+#menu .header {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+    flex: 0 0 35px;
+    font-size: 16px;
+    padding: 5px 10px 5px 0;
+}
+
 #menu .list-todos {
     @include flexbox();
-    @include flex-direction(row);
-    @include flex-wrap(wrap);
+    @include flex(1 1 auto);
+    @include flex-direction(column);
+    //@include flex-wrap(wrap);
+    height: 100%;
     overflow: auto;
+    //padding-right: 10px;
+
 
     .trackRow {
-        border: none;
-        @include flex(0 0 100%);
+        @include flex(0 0 70px);
+
+        //border-color: rgba(255,255,255,0.4);
+        //height: 70px;
     }
 
     .trackRow-albumCover {
+        @include flex(0 0 48px);
         margin-right: 10px;
-        width: 48px;
-
+        
         img {
             height: 48px;
             width: 48px;
@@ -52,16 +65,6 @@
             font-size: 20px;
         }
     }
-}
-
-#menu .header {
-    color: #fff;
-    border-bottom: 1px solid #fff;
-    flex: 1 0 100%;
-    font-size: 20px;
-    padding: 5px;
-
-
 }
 
 

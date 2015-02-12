@@ -4,6 +4,7 @@
 	@include flex(1 1 auto);
 
 	overflow: auto;
+	padding-right: 15px;
 
 	.trackRow {
 		color: #fff;
@@ -11,7 +12,11 @@
 	}
 
 	.trackRow-albumCover {
-		margin-right: 10px;
-		width: auto;
+		@include flex(0 0 auto);
+		margin-right: 15px;
 	}
+
+	// .trackRow-artistName {
+	// 	color: #ccc;
+	// }
 }
