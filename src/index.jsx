@@ -82,9 +82,13 @@ AppDispatcher.register(function (payload) {
 
 React.render(
     <div>
-        <NowPlaying />
-        <Content />
-        <Menu />
+        <div id="containerHeader">
+            <NowPlaying />
+        </div>
+        <div id="containerBody">
+            <Menu />
+            <Content />
+        </div>
     </div>,
     document.getElementById("container")
 );

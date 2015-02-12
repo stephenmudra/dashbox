@@ -1,12 +1,8 @@
+@import "components/flexbox";
 
 #search-results {
+    @include flex(1 1 auto);
     overflow: auto;
-    height: auto;
-    top: 60px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
 
     h1 {
         text-align: center;

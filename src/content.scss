@@ -1,12 +1,12 @@
+@import "components/flexbox";
+
 
 #content-container {
-    position: absolute;
-    top: 200px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: auto;
-    height: auto;
+    @include flexbox();
+    @include flex(0 0 250px);
+    @include flex-direction(column);
+
+    background: rgba(255,255,255,0.7);    
     -webkit-transition: all 200ms ease-out;
     -moz-transition: all 200ms ease-out;
     -o-transition: all 200ms ease-out;
@@ -16,24 +16,24 @@
     -ms-transform: translate3d(0, 0, 0);
     -o-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-    background: #fff;
     opacity: 1;
-}
 
-@media screen and (min-width: 40em) {
-    #content-container {
-        right: 300px;
+    @media screen and (min-width: 60em) {
+        @include flex(0 0 400px);
+    }
+
+    @media screen and (min-width: 80em) {
+        @include flex(0 0 400px);
     }
 }
-
 
 .searchBox {
     margin: 0;
     font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-style: 400;
+    font-weight: 400;
     color: #333333;
+    flex: 0 0 50px;
     font-size: 35px;
-    width: 100%;
     padding: 6px 10px;
     border: 0;
     border-bottom: 1px solid #ccc;
