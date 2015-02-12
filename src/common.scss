@@ -71,6 +71,20 @@ body {
     padding: 20px 0;
 }
 
+    #containerBody-left {
+        @include flexbox();
+        @include flex(1 1 auto);
+        @include flex-direction(column);
+        
+        margin-right: 50px;
+    }
+
+    #containerBody-right {
+        @include flexbox();
+        @include flex(0 0 400px);
+        @include flex-direction(column);
+    }
+
 
 
 

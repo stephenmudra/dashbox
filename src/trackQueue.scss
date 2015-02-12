@@ -1,0 +1,17 @@
+@import "components/flexbox";
+
+#trackQueue {
+	@include flex(1 1 auto);
+
+	overflow: auto;
+
+	.trackRow {
+		color: #fff;
+		padding: 0 0;
+	}
+
+	.trackRow-albumCover {
+		margin-right: 10px;
+		width: auto;
+	}
+}

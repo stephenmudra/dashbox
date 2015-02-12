@@ -22,6 +22,12 @@ var Content = React.createClass({
         });
     },
 
+    clear: function() {
+        this.setState({
+            searchValue: ''
+        });
+    },
+
     keyDown: function(evt) {
         if (evt.keyCode === ENTER_KEY_CODE) {
             evt.target.blur();
@@ -32,7 +38,8 @@ var Content = React.createClass({
         return (
             <div id="content-container">
                 <input className='searchBox' placeholder="Search" onChange={this.handleChange} onKeyDown={this.keyDown} value={this.state.searchValue} />
-                {this.state.searchValue ? <SearchResults query={this.state.searchValue} /> : <TrackQueue />}
+                {this.state.searchValue ? <span className="clearButton" onClick={this.clear}>x</span>: ''}
+                {this.state.searchValue ? <SearchResults query={this.state.searchValue} />: ''}                
             </div>
         );
     }

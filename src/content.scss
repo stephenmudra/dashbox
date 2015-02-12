@@ -2,11 +2,7 @@
 
 
 #content-container {
-    @include flexbox();
-    @include flex(0 0 250px);
-    @include flex-direction(column);
-
-    background: rgba(255,255,255,0.7);    
+    //background: rgba(255,255,255,0.7);    
     -webkit-transition: all 200ms ease-out;
     -moz-transition: all 200ms ease-out;
     -o-transition: all 200ms ease-out;
@@ -18,23 +14,35 @@
     transform: translate3d(0, 0, 0);
     opacity: 1;
 
-    @media screen and (min-width: 40em) {
-        @include flex(0 0 400px);
-    }
+    // @media screen and (min-width: 40em) {
+    //     @include flex(0 0 400px);
+    // }
 }
 
 .searchBox {
-    margin: 0;
-    font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    color: #333333;
-    flex: 0 0 50px;
-    font-size: 35px;
-    padding: 6px 10px;
     border: 0;
-    border-bottom: 1px solid #ccc;
+    color: #333333;
+    @include flex(0 0 24px);
+    font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0 0 10px;
+    padding: 6px 10px;
+    width: 100%;
 }
 
 .searchBox:focus {
     outline: 0;
+}
+
+.clearButton {
+    color: #666;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    padding: 5px;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    z-index: 2;
 }

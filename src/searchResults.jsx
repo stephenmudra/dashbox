@@ -36,14 +36,14 @@ var SearchResults = React.createClass({
         if (this.state.results === undefined) {
             return (
                 <div id="search-results">
-                    <h1>Loading ...</h1>
+                    <span className="loading">Loading ...</span>
                 </div>)
         }
 
         if (this.state.results.length === 0) {
             return (
                 <div id="search-results">
-                    <h1>No Results Found</h1>
+                    <span className="loading">No Results Found</span>
                 </div>)
         }
 

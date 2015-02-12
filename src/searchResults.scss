@@ -1,11 +1,41 @@
 @import "components/flexbox";
 
 #search-results {
-    @include flex(1 1 auto);
+	background: rgba(255,255,255,1);
+    max-height: 480px;
     overflow: auto;
+    position: absolute;
+    top: 46px;
+    width: 100%;
 
     h1 {
         text-align: center;
         margin: 20px;
+    }
+
+    .loading {
+    	display: block;
+    	padding: 20px 0;
+    	text-align: center;
+    }
+
+    .trackRow {
+    	font-size: 16px;
+    }
+
+    .trackRow-albumCover {
+        margin-right: 10px;
+        width: 68px;
+
+        img {
+            height: 48px;
+            width: 48px;
+        }
+    }
+
+    .trackRow-voteWrapper .trackRow-vote {
+    	font-size: 26px;
+    	height: 48px;
+    	width: 48px;
     }
 }

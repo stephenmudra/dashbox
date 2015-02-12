@@ -5,6 +5,7 @@ var React = require('react');
 require('./common.scss');
 
 var Content = require('content.jsx');
+var TrackQueue = require('trackQueue.jsx');
 var Menu = require('menu.jsx');
 var NowPlaying = require('nowPlaying.jsx');
 
@@ -86,8 +87,14 @@ React.render(
             <NowPlaying />
         </div>
         <div id="containerBody">
-            <Menu />
-            <Content />
+            <div id="containerBody-left">
+                <TrackQueue />
+                
+            </div>
+            <div id="containerBody-right">
+                <Content />
+                <Menu />
+            </div>
         </div>
     </div>,
     document.getElementById("container")

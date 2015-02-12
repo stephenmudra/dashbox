@@ -2,7 +2,7 @@
     
 var React = require('react');
 
-require('./searchResults.scss');
+require('./trackQueue.scss');
 
 var createStoreMixin = require('utils/createStoreMixin.js');
 
@@ -33,7 +33,7 @@ var TrackQueue = React.createClass({
 
     render() {
         return (
-            <div id="search-results">
+            <div id="trackQueue">
                 {this.state.queue.map(function(result) {
                     return <ResultsItem key={result.id} id={result.id} showVotes={true} />;
                 })}
