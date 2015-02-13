@@ -221,10 +221,6 @@ var NowPlaying = React.createClass({
                         <h2>{track.name}</h2>
                         {votes}
                     </div>
-                    <div className='details' style={centerAlign}>
-                        <h2>{dhm(track.durationMs)}</h2>
-                        {waveform ? <h3>{key[waveform.key]} {mode[waveform.mode]}</h3> : ''}
-                    </div>
                     <div className='related'>
                         {related}
                     </div>
