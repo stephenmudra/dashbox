@@ -103,8 +103,8 @@ var ResultsItem = React.createClass({
                 <img src={image.url} />
             </div>
             <div className='trackRow-details'>
-                <span class='trackRow-trackName'>{track.name} {track.explicit ? <img src='./explicit.png' /> : ''}</span><br />
-                <span class='trackRow-artistName'>{artists.map(artist => artist.name).join(', ')}</span>
+                <span className='trackRow-trackName'>{track.name} {track.explicit ? <img src='./explicit.png' /> : ''}</span><br />
+                <span className='trackRow-artistName'>{artists.map(artist => artist.name).join(', ')}</span>
             </div>
             {this.props.showVotes ? votes : ''}
             <div className='trackRow-voteWrapper'>
