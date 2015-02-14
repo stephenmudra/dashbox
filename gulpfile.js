@@ -9,7 +9,7 @@ var nodemon = require('gulp-nodemon');
 var _  = require('lodash');
 
 var webpackConfig = {
-    entry: "./app/client",
+    entry: "./client/client",
 
     output: {
         filename: '[name].js',
@@ -27,7 +27,7 @@ var webpackConfig = {
     },
 
     resolve: {
-        root: path.join(__dirname, "app")
+        root: path.join(__dirname, "client")
     },
 
     plugins: []
@@ -67,12 +67,13 @@ gulp.task("webpack:build-dev", function(callback) {
         gutil.log("[webpack:build-dev]", stats.toString({
             colors: true
         }));
+        browserSync.reload({stream:false});
         callback();
     });
 });
 
 gulp.task('sass:build', function () {
-    gulp.src('app/assets/scss/**/*.scss')
+    gulp.src('client/assets/scss/**/*.scss')
         .pipe(sass({
             outputStyle: 'compressed'
         }))
@@ -80,21 +81,22 @@ gulp.task('sass:build', function () {
 });
 
 gulp.task('sass:build-dev', function () {
-    gulp.src('app/assets/scss/**/*.scss')
+    gulp.src('client/assets/scss/**/*.scss')
         .pipe(sass({
             outputStyle: 'nested'
         }))
-        .pipe(gulp.dest('public/assets/css'));
+        .pipe(gulp.dest('public/assets/css'))
+        .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('images', function () {
-    gulp.src('app/assets/images/**')
+    gulp.src('client/assets/images/**')
         .pipe(changed('public/assets/images'))
         .pipe(gulp.dest('public/assets/images'));
 });
 
 gulp.task('fonts', function() {
-    gulp.src('app/assets/fonts/**')
+    gulp.src('client/assets/fonts/**')
         .pipe(changed('public/assets/fonts'))
         .pipe(gulp.dest('public/assets/fonts'));
 });
@@ -102,14 +104,14 @@ gulp.task('fonts', function() {
 
 // we'd need a slight delay to reload browsers
 // connected to browser-sync after restarting nodemon
-var BROWSER_SYNC_RELOAD_DELAY = 1000;
+var BROWSER_SYNC_RELOAD_DELAY = 3000;
 
 gulp.task('nodemon', function (cb) {
     var called = false;
     return nodemon({
         script: 'app.js',
 
-        watch: ['app.js', 'app/server.js']
+        watch: ['app.js', 'server/**/*.*']
     })
         .on('start', function onStart() {
             // ensure start only got called once
@@ -128,22 +130,20 @@ gulp.task('nodemon', function (cb) {
 
 gulp.task('browser-sync', ['nodemon'], function () {
     browserSync.init({
-        files: ['public/**/*.*'],
         proxy: 'http://localhost:3000',
         port: 4000
     });
 });
 
 
-
 // The development server (the recommended option for development)
 gulp.task("default", ['watch', 'browser-sync']);
 
 gulp.task("watch", ["webpack:build-dev", "sass:build-dev", "images", "fonts"], function() {
-    gulp.watch(["app/**/*.js", "app/**/*.jsx"], ["webpack:build-dev"]);
-    gulp.watch(["app/assets/scss/**/*.scss"], ["sass:build-dev"]);
-    gulp.watch(['app/assets/images/**'], ["images"]);
-    gulp.watch(['app/assets/fonts/**'], ["fonts"]);
+    gulp.watch(["client/**/*.js", "client/**/*.jsx"], ["webpack:build-dev"]);
+    gulp.watch(["client/assets/scss/**/*.scss"], ["sass:build-dev"]);
+    gulp.watch(['client/assets/images/**'], ["images"]);
+    gulp.watch(['client/assets/fonts/**'], ["fonts"]);
 });
 
 // Production build
