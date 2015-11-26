@@ -89,8 +89,8 @@ var loadRelated = function (track, socket) {
             ids.push(json.response.songs[i].tracks[0].foreign_id.split(':')[2]);
         }
 
-        request.get('https://api.spotify.com/v1/tracks?ids=' + ids.join(','), function (res) {
-            if (res.ok) {
+        request.get('https://api.spotify.com/v1/tracks?ids=' + ids.join(','), function (err, res) {
+            if (res && res.ok) {
                 var result = [];
                 for (var i = 0, len = res.body.tracks.length; i < len; i++) {
                     if (res.body.tracks[i].available_markets.indexOf('AU') !== -1) {

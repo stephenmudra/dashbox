@@ -2,7 +2,6 @@
 
 var _ = require('lodash'), 
     { EventEmitter } = require('events'),
-    shallowEqual = require('react/lib/shallowEqual'),
     CHANGE_EVENT = 'change';
 
 var StoreUtils = {
@@ -56,7 +55,7 @@ var StoreUtils = {
 
             if (!bag.hasOwnProperty(key)) {
                 bag[key] = transform(entities[key]);
-            } else if (!shallowEqual(bag[key], entities[key])) {
+            } else if (bag[key] != entities[key]) {
                 bag[key] = transform(_.assign({}, bag[key], entities[key]));
             }
         }

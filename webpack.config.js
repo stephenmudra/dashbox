@@ -23,10 +23,10 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.css$/, 	loader: 'style-loader!css-loader'},
-            {test: /\.scss$/, 	loader: 'style-loader!css-loader!sass-loader'},
-            {test: /\.jsx$/,    loader: 'jsx-loader?harmony'},
-            {test: /\.js$/ ,    loader: 'jsx-loader?harmony'},
+            { test: /\.css$/, 	loader: 'style-loader!css-loader'},
+            { test: /\.scss$/, 	loader: 'style-loader!css-loader!sass-loader'},
+            { test: /\.jsx$/,    exclude: /node_modules/, loader: 'babel-loader'},
+            { test: /\.js$/ ,    exclude: /node_modules/, loader: 'babel-loader'},
 
             { test: /\.gif$/ ,	loader: "url-loader?limit=10000&mimetype=image/gif" },
             { test: /\.jpg$/ ,	loader: "url-loader?limit=10000&mimetype=image/jpg" },

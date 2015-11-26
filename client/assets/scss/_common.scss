@@ -69,6 +69,7 @@ body {
     @include flex(1 1 auto);
     @include flex-direction(row);
     padding: 20px 0;
+    height: 80%;
 }
 
     #containerBody-left {

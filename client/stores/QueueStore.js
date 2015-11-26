@@ -22,7 +22,7 @@ var QueueStore = createStore({
     },
 
     loadQueue() {
-        request.get('/queue', function (res) {
+        request.get('/queue', function (err, res) {
             if (!res.ok) {
                 console.log(res.text);
 

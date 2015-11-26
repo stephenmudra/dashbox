@@ -44,7 +44,7 @@ var SearchStore = createStore({
 
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(function () {
-            request.get('https://api.spotify.com/v1/search?market=au&type=track&limit=50&q=' + encodeURIComponent(query), function (res) {
+            request.get('https://api.spotify.com/v1/search?market=au&type=track&limit=50&q=' + encodeURIComponent(query), function (err, res) {
                 if (!res.ok) {
                     console.log(res.text);
 

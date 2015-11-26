@@ -20,8 +20,8 @@ var webpackConfig = {
 
     module: {
         loaders: [
-            { test: /\.js$/, loader: 'jsx-loader?harmony&insertPragma=React.DOM' },
-            { test: /\.jsx$/, loader: 'jsx-loader?harmony&insertPragma=React.DOM' },
+            { test: /\.jsx$/,    exclude: /node_modules/, loader: 'babel-loader'},
+            { test: /\.js$/ ,    exclude: /node_modules/, loader: 'babel-loader'},
             { test: require.resolve('react'), loader: 'expose?React' }
         ]
     },

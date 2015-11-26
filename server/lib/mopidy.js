@@ -38,7 +38,7 @@ mopidy = _.assign(new Mopidy({
                     return;
                 }
 
-                request.get(json.response.songs[0].audio_summary.analysis_url, function (response) {
+                request.get(json.response.songs[0].audio_summary.analysis_url, function (err, response) {
                     console.log(response.ok);
                     if (response.ok && response.body && response.body.segments) {
                         response.body.uri = track;

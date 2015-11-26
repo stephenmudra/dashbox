@@ -1,6 +1,8 @@
-/** @jsx React.DOM */
 
 var React = require('react');
+var ReactDOM = require('react-dom');
+
+var Root = require('./views/Root.jsx');
 
 var AppDispatcher = require('./dispatcher/AppDispatcher'),
     ActionTypes = require('./constants/ActionTypes');
@@ -74,10 +76,7 @@ AppDispatcher.register(function (payload) {
     }
 });
 
-
-var Root = require('./views/Root.jsx');
-
-React.render(
+ReactDOM.render(
     <Root />,
     document.getElementById("app")
 );

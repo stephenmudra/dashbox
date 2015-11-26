@@ -1,6 +1,5 @@
-/** @jsx React.DOM */
-    
 var React = require('react');
+var ReactDOM = require('react-dom');
 var request = require('superagent');
 
 var WaveFormStore = require('stores/WaveFormStore.js');
@@ -27,7 +26,7 @@ var VisCanvas = React.createClass({
     componentDidMount: function() {
         WaveFormStore.addChangeListener(this.handleStoresChanged);
 
-        var domNode = this.getDOMNode();
+        var domNode = ReactDOM.findDOMNode(this.refs.canvas);
 
         this.ctx = domNode.getContext("2d");
 
@@ -147,7 +146,7 @@ var VisCanvas = React.createClass({
 
     render: function() {
         return (
-            <canvas width="200" height="200" />
+            <canvas width="200" height="200" ref="canvas" />
         );
     }
 });
