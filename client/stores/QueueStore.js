@@ -66,7 +66,7 @@ var QueueStore = createStore({
         var sorted = [];
 
         for (var item in _queue) {
-            if (_queue.hasOwnProperty(item)) {
+            if (_queue.hasOwnProperty(item) && _queue[item].votes && _queue[item].votes.length > 0) {
                 sorted.push(_queue[item]);
             }
         }
