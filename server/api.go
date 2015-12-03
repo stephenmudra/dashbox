@@ -55,6 +55,7 @@ func (a *Api) votePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	a.queue.VoteTrack(track.Uri, findIpAddress(r))
+	a.SetNextTrack()
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(201)
