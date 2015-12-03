@@ -6,8 +6,8 @@
 var AppDispatcher = require('dispatcher/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes'),
     SearchStore = require('stores/SearchStore.js'),
-    TrackStore = require('stores/TrackStore.js'),
     request = require('superagent');
+import TrackStore from 'stores/TrackStore.js';
 
 var humps = require('humps'),
     normalizr = require('normalizr'),
@@ -28,9 +28,18 @@ track.define({
 var search = '',
     searchTimeout = null;
 
+var loadingTracks = [];
+
 var TrackActions = {
     loadTrack (trackId) {
-        if (TrackStore.contains(trackId)) {
+        if (!trackId || typeof trackId != 'string') {
+            return;
+        }
+
+        trackId = trackId.split(':');
+        trackId = trackId[trackId.length - 1];
+
+        if (loadingTracks.indexOf(trackId) !== -1 || TrackStore.contains(trackId)) {
             return;
         }
 
@@ -39,7 +48,8 @@ var TrackActions = {
             query: trackId
         });*/
 
-        request.get('https://api.spotify.com/v1/tracks?ids=' + trackId, function (res) {
+        loadingTracks.push(trackId);
+        request.get('https://api.spotify.com/v1/tracks?ids=' + trackId, function (err, res) {
             if (!res.ok) {
                 console.log(res.text);
 
@@ -74,7 +84,7 @@ var TrackActions = {
             searchTimeout = setTimeout(function () {
                 query = search;
                 searchTimeout = null;
-                request.get('https://api.spotify.com/v1/search?market=au&type=track&limit=50&q=' + encodeURIComponent(search), function (res) {
+                request.get('https://api.spotify.com/v1/search?market=au&type=track&limit=50&q=' + encodeURIComponent(search), function (err, res) {
                     if (!res.ok) {
                         console.log(res.text);
 
@@ -107,4 +117,4 @@ var TrackActions = {
     }
 };
 
-module.exports = TrackActions;
+export default TrackActions;

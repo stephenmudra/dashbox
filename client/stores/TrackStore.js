@@ -1,14 +1,12 @@
-/**
- * Created by stephenmudra on 18/01/15.
- */
 
-'use strict';
 
-var AppDispatcher = require('dispatcher/AppDispatcher'),
-    PayloadSources = require('constants/PayloadSources'),
-    AlbumStore = require('stores/AlbumStore.js'),
-    ArtistStore = require('stores/ArtistStore.js'),
-    { createStore, mergeIntoBag, isInBag } = require('utils/StoreUtils');
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import PayloadSources from '../constants/PayloadSources';
+import AlbumStore from '../stores/AlbumStore.js';
+import ArtistStore from '../stores/ArtistStore.js';
+import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
+
+import TrackActions from '../actions/TrackActions.js';
 
 var _tracks = {};
 
@@ -18,6 +16,13 @@ var TrackStore = createStore({
     },
 
     get(query) {
+        if (!query || typeof query != 'string') {
+            return;
+        }
+        query = query.split(':');
+        query = query[query.length - 1];
+
+        TrackActions.loadTrack(query);
         return _tracks[query];
     }
 });
@@ -39,4 +44,4 @@ TrackStore.dispatchToken = AppDispatcher.register(function (payload) {
     }
 });
 
-module.exports = TrackStore;
+export default TrackStore;

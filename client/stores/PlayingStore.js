@@ -18,10 +18,13 @@ var PlayingStore = createStore({
 
 PlayingStore.dispatchToken = AppDispatcher.register(function (payload) {
     var action = payload.action,
-        response = action.playing;
+        entities = action && action.entities,
+        response = entities && entities.playing;
 
     if (response) {
-        if (response.currentPosition) {
+        _playing.track = response;
+
+        /*if (response.currentPosition) {
             _playing.currentPosition = response.currentPosition;
             _playing.currentTime = new Date().getTime();
         }
@@ -36,7 +39,7 @@ PlayingStore.dispatchToken = AppDispatcher.register(function (payload) {
 
         if (response.related) {
             _playing.related = response.related;
-        }
+        }*/
 
         PlayingStore.emitChange();
     }

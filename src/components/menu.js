@@ -18,7 +18,7 @@ var Menu = React.createClass({
         var recent = this.state.queue.slice(0, 15);
 
         return recent.map(function(result) {
-            return <ResultsItem key={result.link} id={result.link} />;
+            return <ResultsItem key={result.id + result.hash} id={result.id} />;
         });
     },
 

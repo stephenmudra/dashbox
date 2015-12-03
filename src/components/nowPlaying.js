@@ -31,9 +31,6 @@ var NowPlaying = React.createClass({
         var playing = PlayingStore.get(),
             track = TrackStore.get(playing.track);
 
-
-        console.log(playing, track);
-
         if (!track) {
             return {
                 track: {},
@@ -46,20 +43,37 @@ var NowPlaying = React.createClass({
             };
         }
 
+        var waveform = WaveFormStore.get();
+        if (waveform && waveform.segments) {
+            this.normalizeColor(waveform);
+
+            var r = 0, g = 0, b = 0;
+
+            for (var i = 0, len = waveform.segments.length; i < len; i++) {
+                var result = this.getColor(waveform.segments[i]);
+                r += result[0];
+                g += result[1];
+                b += result[2];
+            }
+
+            document.body.style.backgroundImage = "linear-gradient(to bottom, #315481, "+this.to_rgb(r/waveform.segments.length, g/waveform.segments.length, b/waveform.segments.length)+" 150%)";
+
+        }
+
         return {
-            track: track,
+            track: TrackStore.get(playing.track),
             album: AlbumStore.get(track.album),
             artists: track.artists.map(id => ArtistStore.get(id)),
-            //currentPosition: playing.currentPosition,
-            //currentTime: playing.currentTime,
-            //votes: playing.votes,
-            //related: playing.related,
-            //waveform: waveform
+            currentPosition: playing.currentPosition,
+            currentTime: playing.currentTime,
+            votes: playing.votes,
+            related: playing.related,
+            waveform: waveform
         };
     },
 
     componentDidMount() {
-        //requestAnimationFrame(this.updateTime);
+        requestAnimationFrame(this.updateTime);
     },
 
     componentWillReceiveProps() {
@@ -126,7 +140,6 @@ var NowPlaying = React.createClass({
     },
 
     render() {
-        console.log(this.state);
 
         var currentPosition = this.state.currentPosition;
 
@@ -135,7 +148,7 @@ var NowPlaying = React.createClass({
             artists = this.state.artists,
             image = null;
 
-        if (!track) {
+        if (!currentPosition || !track) {
             return (
                 <div id="nowPlaying">
                     <div className='topLayer'>
@@ -149,11 +162,14 @@ var NowPlaying = React.createClass({
             );
         }
 
-        if (album.images) {
-            for (var i = 0, len = album.images.length; i < len; i++) {
-                if (!image || (image.width > album.images[i].width && album.images[i].width > 150)) {
-                    image = album.images[i];
-                }
+        var divStyle = {
+            width: Math.min(currentPosition.position / currentPosition.duration * 100, 100) + '%'
+        };
+
+
+        for (var i = 0, len = album.images.length; i < len; i++) {
+            if (!image || (image.width > album.images[i].width && album.images[i].width > 150)) {
+                image = album.images[i];
             }
         }
 
@@ -191,9 +207,10 @@ var NowPlaying = React.createClass({
         return (
             <div id="nowPlaying">
                 <VisCanvas id={track.id} />
+                <div className='middleLayer' style={divStyle} />
                 <div className='topLayer'>
                     <div className='cover'>
-                        {image ? <img src={image.url} /> : null}
+                        <img src={image.url} />
                     </div>
                     <div className='details'>
                         <h3>{artists.map(artist => artist.name).join(', ')}</h3>

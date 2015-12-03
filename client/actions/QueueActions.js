@@ -12,11 +12,11 @@ var _voting = [];
 
 var QueueActions = {
     loadQueue () {
-        /*AppDispatcher.handleViewAction({
+        AppDispatcher.handleViewAction({
             type: ActionTypes.REQUEST_QUEUE
-        });*/
+        });
 
-        /*request.get('/queue', function (res) {
+        request.get('/api/queue', function (err, res) {
             if (!res.ok) {
                 console.log(res.text);
 
@@ -28,9 +28,9 @@ var QueueActions = {
 
             AppDispatcher.handleServerAction({
                 type: ActionTypes.REQUEST_QUEUE_SUCCESS,
-                entities: res.body
+                entities: res.body,
             });
-        });*/
+        });
     },
     voteSong: function (track) {
         if (_voting.indexOf(track) !== -1) {
@@ -39,9 +39,14 @@ var QueueActions = {
 
         _voting.push(track);
 
-        AppDispatcher.handleServerAction({
-            type: ActionTypes.VOTE_TRACK_SUCCESS,
-            track: track
+        request.post('/api/vote', {
+            track,
+        }, function (err, res) {
+            QueueActions.loadQueue();
+            AppDispatcher.handleServerAction({
+                type: ActionTypes.VOTE_TRACK_SUCCESS,
+                track: track
+            });
         });
     }
 };

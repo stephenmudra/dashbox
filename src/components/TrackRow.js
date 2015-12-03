@@ -58,7 +58,7 @@ var ResultsItem = React.createClass({
     },
 
     voteHandler () {
-        QueueActions.voteSong(this.state.track.uri);
+        QueueActions.voteSong(this.props.id);
     },
 
     render() {
@@ -86,15 +86,15 @@ var ResultsItem = React.createClass({
         var votes = [];
         if (queue && this.state.user) {
             for(i = 0, len = queue.votes.length; i < len; i++) {
-                votes.push(<img key={i}  src={'http://identicon.org?t=' + queue.votes[i] + ''} width="25" height="25" />);
-                if (queue.votes[i] == this.state.user) {
+                votes.push(<img key={i}  src={'http://identicon.org?t=' + queue.votes[i].hash + ''} width="25" height="25" />);
+                if (queue.votes[i].hash == this.state.user.hash) {
                     voted = true;
                 }
             }
         }
 
         if (track.availableMarkets.indexOf('AU') === -1) {
-            return null;
+            return <div />;
         }
 
         return <div className='trackRow'>
@@ -102,7 +102,7 @@ var ResultsItem = React.createClass({
                 <img src={image.url} />
             </div>
             <div className='trackRow-details'>
-                <span className='trackRow-trackName'>{track.name}</span><br />
+                <span className='trackRow-trackName'>{track.name} {track.explicit ? <img src='./assets/images/explicit.png' /> : ''}</span><br />
                 <span className='trackRow-artistName'>{artists.map(artist => artist.name).join(', ')}</span>
             </div>
             {this.props.showVotes ? votes : ''}

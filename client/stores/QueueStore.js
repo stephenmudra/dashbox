@@ -22,7 +22,7 @@ var QueueStore = createStore({
     },
 
     loadQueue() {
-        request.get('/queue', function (err, res) {
+        request.get('/api/queue', function (err, res) {
             if (!res.ok) {
                 console.log(res.text);
 
@@ -55,7 +55,7 @@ var QueueStore = createStore({
             if (aVotes != bVotes) {
                 return bVotes - aVotes;
             } else {
-                return new Date(a.modified) - new Date(b.modified);
+                return new Date(a.lastVote) - new Date(b.lastVote);
             }
         });
 
@@ -67,17 +67,12 @@ var QueueStore = createStore({
 
         for (var item in _queue) {
             if (_queue.hasOwnProperty(item)) {
-                item = _queue[item];
-                for (var i = 0, len = item.votes.length; i < len; i++) {
-                    var temp = item.votes[i];
-                    temp.id = item.id;
-                    sorted.push(temp);
-                }
+                sorted.push(_queue[item]);
             }
         }
 
         sorted.sort(function(a, b) {
-            return new Date(b.created) - new Date(a.created);
+            return new Date(b.lastVote) - new Date(a.lastVote);
         });
 
         return sorted;
@@ -97,7 +92,10 @@ QueueStore.dispatchToken = AppDispatcher.register(function (payload) {
                 continue;
             }
 
-            _queue[key] = transform(fetchedQueue[key]);
+            var trackId = fetchedQueue[key].link.split(':');
+            trackId = trackId[trackId.length - 1];
+
+            _queue[trackId] = transform(fetchedQueue[key]);
         }
 
         QueueStore.emitChange();

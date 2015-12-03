@@ -18,7 +18,8 @@ var UserStore = createStore({
 
 UserStore.dispatchToken = AppDispatcher.register(function (payload) {
     var action = payload.action,
-        response = action.user;
+        entities = action && action.entities,
+        response = entities && entities.user;
 
     if (response) {
         _user = response;
