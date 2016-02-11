@@ -40,22 +40,6 @@ func NewMusicPlayer(config *spotify.Config, username string, password string) (*
 		return nil, err
 	}
 
-	go func() {
-		for {
-			select {
-			case <-m.quit:
-				return
-			case <-m.Session.EndOfTrackUpdates():
-				if m.CurrentTrack != nil {
-					log.Println("[music.go] Track Finished: ", m.CurrentTrack.String())
-					m.CurrentTrack = nil
-					m.Player.Unload()
-				}
-				m.Play()
-			}
-		}
-	}()
-
 	return m, nil
 }
 

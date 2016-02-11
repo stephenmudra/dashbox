@@ -21,10 +21,13 @@ import (
 	"os"
 	"os/signal"
 	"path"
+	"math/rand"
+	"time"
 
 	"./server"
 
 	"github.com/op/go-libspotify/spotify"
+	"fmt"
 )
 
 var (
@@ -101,8 +104,29 @@ func main() {
 		case currentTrack := <-session.StartOfTrackUpdates:
 			queue.ResetVotes(currentTrack.Uri)
 			api.SetNextTrack()
+		case <-session.EndOfTrackUpdates():
+			if session.CurrentTrack != nil {
+				log.Println("[music.go] Track Finished: ", session.CurrentTrack.String())
+				session.CurrentTrack = nil
+				session.Player.Unload()
+			}
+
+			if (random(0, 5) == 0) {
+				files, _ := ioutil.ReadDir("./stingers")
+				rando := random(0, len(files))
+
+				audio.WriteFile("./stingers/" + files[rando].Name())
+				fmt.Println(files[rando].Name())
+			}
+
+			session.Play()
 		case <-signals:
 			return
 		}
 	}
+}
+
+func random(min, max int) int {
+	rand.Seed(time.Now().Unix())
+	return rand.Intn(max - min) + min
 }

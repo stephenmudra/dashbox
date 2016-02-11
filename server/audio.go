@@ -4,6 +4,10 @@ import (
 	"github.com/HardWareGuy/portaudio-go"
 	"github.com/op/go-libspotify/spotify"
 	"sync"
+	"github.com/cryptix/wav"
+	"os"
+	"fmt"
+	"bytes"
 )
 
 var (
@@ -64,6 +68,40 @@ func (w *audioWriter) WriteAudio(format spotify.AudioFormat, frames []byte) int 
 	default:
 		return 0
 	}
+}
+
+func (w *audioWriter) WriteFile(filepath string) (int, error) {
+
+	wavInfo, err := os.Stat(filepath)
+	if err != nil {
+		return 0, err
+	}
+
+	wavFile, err := os.Open(filepath)
+	if err != nil {
+		return 0, err
+	}
+
+	wavReader, err := wav.NewReader(wavFile, wavInfo.Size())
+	if err != nil {
+		return 0, err
+	}
+	fmt.Println(wavReader);
+
+	stream, err := wavReader.GetDumbReader();
+	if err != nil {
+		return 0, err
+	}
+
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(stream)
+
+	select {
+		case w.input <- audio{spotify.AudioFormat{SampleRate: int(wavReader.GetFile().SampleRate), Channels: int(wavReader.GetFile().Channels)}, buf.Bytes()}:
+		default:
+	}
+
+	return int(wavReader.GetSampleCount()), nil;
 }
 
 // streamWriter reads data from the input buffer and writes it to the output
@@ -186,3 +224,4 @@ func (s *portAudioStream) Stream(buffer *[]int16, channels int, sampleRate int) 
 func (s *portAudioStream) Write() error {
 	return s.stream.Write()
 }
+
