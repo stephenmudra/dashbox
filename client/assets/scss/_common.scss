@@ -78,12 +78,15 @@ body {
         @include flex-direction(column);
 
         margin-right: 30px;
+        max-width: 900px;
     }
 
     #containerBody-right {
         @include flexbox();
         @include flex(0 0 400px);
         @include flex-direction(column);
+
+        max-width: 500px;
     }
 
 
